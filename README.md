@@ -1,8 +1,8 @@
 # project-euler
 
-Abstract and generalized solutions for Project Euler.
+Soluções abstraídas para os desafios do [Project Euler].
 
-
+[Project Euler]: <https://projecteuler.net/>
 
 ```sh
 $ node code.js
