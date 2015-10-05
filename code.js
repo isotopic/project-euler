@@ -196,6 +196,10 @@ Sucessivamente multiplica-se um pelo outro pelas combinações possíveis.
 */
 function biggest_palindrome_product_of_two_numbers_with(n){
 
+	if(n>3){
+		return 'Resolução ainda não foi otimizada para n > 3.';
+	}
+
 	var max_factor = Math.pow(10,n)-1;
 	var min_factor = Math.pow(10,n-1);
 
