@@ -94,7 +94,7 @@ function sum_of_multiples_3_and_5_below(n){
 	return sum;
 }
 
-addSolution(1, sum_of_multiples_3_and_5_below, 1000, 'Obter a soma dos múltiplos de 3 e 5 menores que '+GREEN_BOLD+'n'+RESET+'.');
+addSolution(1, sum_of_multiples_3_and_5_below, 1000, 'Função para obter a soma dos múltiplos de 3 e 5 menores que '+GREEN_BOLD+'n'+RESET+'.');
 
 
 
@@ -131,7 +131,7 @@ function sum_of_even_fibonaccis_smaller_than(n){
 	return sum;
 }
 
-addSolution(2, sum_of_even_fibonaccis_smaller_than, 4000000, 'Obter a soma dos elementos pares da sequência fibonacci menores que '+GREEN_BOLD+'n'+RESET+'.');
+addSolution(2, sum_of_even_fibonaccis_smaller_than, 4000000, 'Função para obter a soma dos elementos pares da sequência fibonacci menores que '+GREEN_BOLD+'n'+RESET+'.');
 
 
 
@@ -168,7 +168,7 @@ function prime_factors(n){
 	}
 }
 
-addSolution(3, prime_factors, 600851475143, 'Obter o maior fator primo do número '+GREEN_BOLD+'n'+RESET+'.');
+addSolution(3, prime_factors, 600851475143, 'Função para obter o maior fator primo do número '+GREEN_BOLD+'n'+WHITE+'\nObs.: A função retorna todos os fatores - considerar o último valor.');
 
 
 
@@ -220,7 +220,7 @@ function biggest_palindrome_product_of_two_numbers_with(n){
 
 }
 
-addSolution(4, biggest_palindrome_product_of_two_numbers_with, 3, 'Obter o maior palíndromo formado pelo produto de dois números de '+GREEN_BOLD+'n'+RESET+' dígitos.'); 
+addSolution(4, biggest_palindrome_product_of_two_numbers_with, 3, 'Função para obter o maior palíndromo formado pelo produto de dois números de '+GREEN_BOLD+'n'+RESET+' dígitos.'); 
 
 
 
@@ -284,11 +284,12 @@ function startCLI(){
 	banner += "---------------------------------------------------\n";
 	//banner += "\n";
 	//banner += "\n";
+	banner = "";
 
     console.log(banner);
 
     var solved = getSolved();
-    console.log('\nResoluções disponíveis até o momento: '+WHITE_BOLD+'['+solved.join(', ')+ ']'+RESET+'\n');
+    console.log('\nResoluções disponíveis até o momento: '+WHITE_BOLD+'['+solved.join(', ')+ ']'+RESET)
 	
 	rl = readline.createInterface({
 	  input: process.stdin,
@@ -302,7 +303,7 @@ function startCLI(){
 
 
 function chooseProblem(){
-	rl.question('\n  >  Digite um dos ids disponíveis, ou x para sair: ', function(id) {
+	rl.question('\n  >  Digite o id de uma questão, ou x para sair: ', function(id) {
 		if(id=='x'||id=='X'){
 			console.log('');
 			rl.close();
@@ -322,11 +323,11 @@ function chooseProblem(){
 
 
 function chooseParams(id){
-	console.log('\n'+WHITE+'https://projecteuler.net/problem='+id+'\n\n'+solutions[id].desc+RESET+'\n');
+	console.log('\n'+WHITE+'PROBLEMA '+id+':\n'+solutions[id].desc+RESET);
 	if(solutions[id].params.length==0){
 		solveProblem(id);
 	}else{
-		rl.question('\n  >  Digite o parâmetro '+WHITE_BOLD+solutions[id].params[0]+RESET+' (a questão pede '+solutions[id].params[0]+' = '+solutions[id].asked+'): ', function(param) {
+		rl.question('\n  >  Digite um valor para '+WHITE_BOLD+solutions[id].params[0]+RESET+' (o enunciado pede '+solutions[id].params[0]+' = '+solutions[id].asked+'): ', function(param) {
 			solveProblem(id, param);
 		});
 	}
@@ -343,7 +344,7 @@ function solveProblem(id, param){
 	}else{
 		response = solutions[id].func(param);
 	}
-	console.log('\n\n'+WHITE_BOLD+response+RESET+'\n');
+	console.log('\n'+WHITE_BOLD+response+RESET);
 	chooseProblem();
 }
 
