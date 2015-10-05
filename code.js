@@ -3,6 +3,7 @@
 * https://projecteuler.net
 */
 
+console.log('\033c');
 
 
 /*
@@ -267,7 +268,7 @@ function getSolved(){
 
 
 function startCLI(){
-	banner = WHITE+"\n\n";
+	banner = WHITE;
 	banner += "---------------------------------------------------\n";
 	banner += ",--.                ,--.                ,--.       \n";
 	banner += "|  | ,---.  ,---. ,-'  '-. ,---.  ,---. `--' ,---. \n";
