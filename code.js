@@ -113,7 +113,8 @@ By considering the terms in the Fibonacci sequence whose values do not exceed fo
 
 SOLUÇÃO
 
-Cria a sequência fibonacci até o limite n pedido (4000000). Cada valor da sequência (next) é composto pela soma (ultimate + penultimate).
+Percorre sequência fibonacci até o limite n pedido (4000000), incrementando (sum). 
+Cada valor da sequência (next) é composto pela soma (ultimate + penultimate).
 Em cada iteração, se o número fibonacci (next) é par, incrementa (sum).
 
 */
@@ -152,22 +153,22 @@ SOLUÇÃO
 Sucessivamente tenta dividir (n) por números primos (p).
 Quando é divisível, adiciona o fator primo (p) ao array factors.
 (n) permanece constante para limitar os fatores primos possíveis.
-(nn) é a cópia de (n) que vai sendo dividida até chegar a 2 (menor fator primo)
+(dividendo) é a cópia de (n) que vai sendo dividida até chegar a 1 (menor fator primo)
 
 */
 function prime_factors(n){
 	var factors = [];
-	var nn=n;
-	for(var p=2; p<=n; p++){
-		if(nn%p==0){
+	var dividendo=n;
+	for(var p=1; p<=n; p++){
+		if(dividendo%p==0){
 			factors.push(p);
-			nn=(nn/p);
-			p=2;
+			dividendo=(dividendo/p);
+			p=1;
 		}
-		if(nn<=2) return factors;
+		if(dividendo<2) return factors;
 	}
-}
 
+}
 addSolution(3, prime_factors, 600851475143, 'Função para obter o maior fator primo do número '+GREEN_BOLD+'n'+WHITE+'\nObs.: A função retorna todos os fatores - considerar o último valor.');
 
 
@@ -227,8 +228,105 @@ addSolution(4, biggest_palindrome_product_of_two_numbers_with, 3, 'Função para
 
 
 
+
+
+
+
+
 /*
-var res = biggest_palindrome_product_of_two_numbers_with(3);
+
+[PROBLEM 5]
+
+2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+
+SOLUÇÃO
+
+Força bruta nesse caso (loopar de 1 a trocentos testando os multiplos) é inviável.
+A solução é construir o número a partir da decomposição dos divisores desejados.
+Pelo problema 3 vimos que todo numero pode ser fatorado em números primos.
+Primeiro fatora-se todos os divisores em primos (usando a função do problema 3).
+Armazena-se as maiores potências possíveis de cada divisor fatorado.
+
+1  = 1
+2  = 2
+3  = 3
+4  = 2*2
+5  = 5     <-- 5    maior potência de 5: 1
+6  = 2*3
+7  = 7     <-- 7    maior potência de 7: 1
+8  = 2*2*2 <-- 2^3  maior potência de 2: 3
+9  = 3*3   <-- 3^2  maior potência de 3: 2
+10 = 2*5
+
+Multiplica as maiores potências possíveis de cada número primo:
+
+(2^3) * (3^2) * (5) * (7) = 2520
+
+*/
+function smallest_number_divisible_by_1_to(n){
+
+	//Array para armazenar as potências de cada fator primo que compõe um divisor.
+	//Os índices do array são os próprios números primos. Indices comuns ficam anulados.
+	//Ex. Se biggest_powers = [0,0,3,1,null,2] então os fatores são (2*2*2) (3) (5*5)
+	var biggest_powers = []; 
+
+	//Armazena fatores de cada divisor para cálculo
+	var factors;
+
+	//Para contagem das potências de cada fator primo
+	var power_count;
+
+	//Loop pelos divisores desejados (por ex. 1 a 10, ou 1 a 20)
+	for(var divisor=2; divisor<=n; divisor++){
+
+		factors = prime_factors(divisor);
+
+		//console.log(divisor + ' = '+factors);
+
+		power_count = [];
+
+		//Loop pelos fatores desse divisor, contando ocorrências de cada primo (ou seja, potência)
+		for(var f=0; f<factors.length; f++){
+
+			if(factors[f]!=null){
+				power_count[factors[f]] = ( power_count[factors[f]] || 0 );
+				power_count[factors[f]]++;		
+			}
+			
+		}
+
+		//Com a contagem das potências, atualiza biggest_powers caso encontre uma potência maior para determinado primo
+		for(var p=1; p<power_count.length; p++){
+
+			biggest_powers[p] = (biggest_powers[p] || 0);
+
+			if(power_count[p] != null && power_count[p] > biggest_powers[p]){
+				biggest_powers[p] = power_count[p];
+			}
+
+		}
+
+	}
+
+	//Multiplica todos os fatores para descobrir o número
+	var prod = 1;
+	for(var i=1; i<biggest_powers.length; i++){
+		power = (biggest_powers[i]||0);
+		//console.log(i+'^'+power);
+		prod *= Math.pow(i,power);
+	}
+
+	return prod;
+}
+
+addSolution(5, smallest_number_divisible_by_1_to, 20, 'Função para o menor número que seja divisível por todos os inteiros de 1 a '+GREEN_BOLD+'n'+RESET+'.'); 
+
+
+
+
+/*
+var res = smallest_number_divisible_by_1_to(10);
 console.log(res);
 process.exit();
 */
@@ -312,7 +410,7 @@ function chooseProblem(){
 		if(!isNaN(id) && solutions[id]!=null){
 			chooseParams(id);
 		}else{
-			console.log(WHITE+'\nSolução não encontrada.'+RESET);
+			console.log(WHITE+'\nId de questão inválido.'+RESET);
 			chooseProblem();
 		}
 	});
