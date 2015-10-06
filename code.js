@@ -248,7 +248,7 @@ A solução é construir o número N a partir da decomposição dos divisores de
 Considerando o exemplo dado no enunciado (n=10), para N ser o menor possível e divisível por 1,2,3,4,5,6,7,8,9 e 10, é necessário que:
 N / (1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9 . 10)
 
-O problema 3 mostra que todo número pode ser fatorado em números primos.
+O problema 3 mostra que todo número composto pode ser fatorado em números primos.
 Primeiro fatora-se todos os divisores em primos (usando a função do problema 3).
 Armazena-se as maiores potências possíveis de cada divisor fatorado.
 N / [ 1 . 2 . 3 . (2.2) . 5 . (2.3) . 7 . (2.2.2) . (3.3) . (2.5) ] = 1
@@ -373,11 +373,65 @@ process.exit();
 
 
 
+/*
+
+[PROBLEM 7]
+
+By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
+What is the 10 001st prime number?
+
+
+SOLUÇÃO
+
+Função simples para teste de primalidade, separada pra utilizações futuras.
+Em seguida triagem força bruta até o enésimo número primo e retorna seu valor.
+Performance ok pro valor pedido mas estoura pra n > 10^6.
+Otimizar o teste de primalidade.
+
+*/
+
+function is_prime(n){
+	if(n<=1) return false;
+	if(n<=3) return true;
+	if(n%2==0 || n%3==0) return false;
+	if(n>7 && (n%5==0 || n%7==0)) return false;
+	var last_test = Math.ceil(Math.sqrt(n));
+	for(var a=8; a<=last_test; a++){
+		if(n%a==0){
+			return false;
+		}
+	}
+	return true;
+}
+
+function prime_list_with(n){
+	var prime_counter = [];
+	var naturals = 0;
+	while(prime_counter.length<=n){
+		naturals++;
+		if(is_prime(naturals)){
+			if(prime_counter.length>=n){
+				return prime_counter[prime_counter.length-1];
+			}
+			prime_counter.push(naturals);
+		}
+	}
+}
+
+addSolution(7, prime_list_with, 10001, 'Função para obter o e'+GREEN_BOLD+'n'+WHITE+'ésimo número primo.');
 
 
 
 
 
+
+
+//Debug
+/*
+response = solutions[7].func(100000);
+console.log('\n'+WHITE_BOLD+response+RESET);
+process.exit();
+*/
 
 
 
