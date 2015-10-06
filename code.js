@@ -240,35 +240,28 @@ addSolution(4, biggest_palindrome_product_of_two_numbers_with, 3, 'Função para
 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
 What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
 
+
 SOLUÇÃO
 
-Força bruta nesse caso (loopar de 1 a trocentos testando os multiplos) é inviável.
-A solução é construir o número a partir da decomposição dos divisores desejados.
-Pelo problema 3 vimos que todo numero pode ser fatorado em números primos.
+Força bruta nesse caso (percorrer de 1 a trocentos testando os n multiplos) é inviável.
+A solução é construir o número N a partir da decomposição dos divisores desejados.
+Considerando o exemplo dado no enunciado (n=10), para N ser o menor possível e divisível por 1,2,3,4,5,6,7,8,9 e 10, é necessário que:
+N / (1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9 . 10)
+
+O problema 3 mostra que todo número pode ser fatorado em números primos.
 Primeiro fatora-se todos os divisores em primos (usando a função do problema 3).
 Armazena-se as maiores potências possíveis de cada divisor fatorado.
+N / [ 1 . 2 . 3 . (2.2) . 5 . (2.3) . 7 . (2.2.2) . (3.3) . (2.5) ] = 1
 
-1  = 1
-2  = 2
-3  = 3
-4  = 2*2
-5  = 5     <-- 5    maior potência de 5: 1
-6  = 2*3
-7  = 7     <-- 7    maior potência de 7: 1
-8  = 2*2*2 <-- 2^3  maior potência de 2: 3
-9  = 3*3   <-- 3^2  maior potência de 3: 2
-10 = 2*5
-
-Multiplica as maiores potências possíveis de cada número primo:
-
-(2^3) * (3^2) * (5) * (7) = 2520
+Para cada divisor, basta considerar apenas os que formaram a maior potência de cada primo:
+1 . 2ˆ3 . 3ˆ2 . 5 . 7 = 2520
 
 */
 function smallest_number_divisible_by_1_to(n){
 
 	//Array para armazenar as potências de cada fator primo que compõe um divisor.
 	//Os índices do array são os próprios números primos. Indices comuns ficam anulados.
-	//Ex. Se biggest_powers = [0,0,3,1,null,2] então os fatores são (2*2*2) (3) (5*5)
+	//Ex. Se biggest_powers = [0,0,3,1,null,2] então os fatores são (2*2*2) (3) (5*5).
 	var biggest_powers = []; 
 
 	//Armazena fatores de cada divisor para cálculo
@@ -288,23 +281,18 @@ function smallest_number_divisible_by_1_to(n){
 
 		//Loop pelos fatores desse divisor, contando ocorrências de cada primo (ou seja, potência)
 		for(var f=0; f<factors.length; f++){
-
 			if(factors[f]!=null){
 				power_count[factors[f]] = ( power_count[factors[f]] || 0 );
 				power_count[factors[f]]++;		
 			}
-			
 		}
 
 		//Com a contagem das potências, atualiza biggest_powers caso encontre uma potência maior para determinado primo
 		for(var p=1; p<power_count.length; p++){
-
 			biggest_powers[p] = (biggest_powers[p] || 0);
-
 			if(power_count[p] != null && power_count[p] > biggest_powers[p]){
 				biggest_powers[p] = power_count[p];
 			}
-
 		}
 
 	}
@@ -320,16 +308,123 @@ function smallest_number_divisible_by_1_to(n){
 	return prod;
 }
 
-addSolution(5, smallest_number_divisible_by_1_to, 20, 'Função para o menor número que seja divisível por todos os inteiros de 1 a '+GREEN_BOLD+'n'+RESET+'.'); 
+addSolution(5, smallest_number_divisible_by_1_to, 20, 'Função para obter o menor número que seja divisível por todos os inteiros de 1 a '+GREEN_BOLD+'n'+RESET+'.'); 
+
+
+
+
+
+
+
+
+
 
 
 
 
 /*
-var res = smallest_number_divisible_by_1_to(10);
+
+[PROBLEM 6]
+
+The sum of the squares of the first ten natural numbers is,
+12 + 22 + ... + 102 = 385
+
+The square of the sum of the first ten natural numbers is,
+(1 + 2 + ... + 10)2 = 552 = 3025
+
+Hence the difference between the sum of the squares of the first ten natural numbers and the square of the sum is 3025 − 385 = 2640.
+Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
+
+
+SOLUÇÃO
+
+Sem graça comparado ao anterior. COMBO BREAKER
+
+*/
+function diff_between_sum_of_squares_and_square_of_sum_of_1_to(n){
+	var square_of_sum = 0;
+	var sum_of_squares = 0;
+
+	for(var a=1; a<=n; a++){
+		square_of_sum += a;
+		sum_of_squares += a*a;
+	}
+
+	square_of_sum *= square_of_sum;
+
+	return square_of_sum - sum_of_squares;
+}
+
+addSolution(6, diff_between_sum_of_squares_and_square_of_sum_of_1_to, 100, 'Função para obter a diferença entre o [quadrado da soma de 1 a '+GREEN_BOLD+'n'+WHITE+'] e a [soma dos quadrados de 1 a '+GREEN_BOLD+'n'+WHITE+'].'+RESET);
+
+
+/*
+var res = diff_between_sum_of_squares_and_square_of_sum_of_1_to(1000);
 console.log(res);
 process.exit();
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -380,9 +475,7 @@ function startCLI(){
 	banner += "                                 `--'              \n";
 	banner += "                 Abstracted Project Euler solutions\n";
 	banner += "---------------------------------------------------\n";
-	//banner += "\n";
-	//banner += "\n";
-	banner = "";
+	//banner = "";
 
     console.log(banner);
 
