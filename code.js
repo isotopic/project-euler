@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
 * Isotopic - Soluções abstraídas para as questões do projeto euler
 * https://projecteuler.net
@@ -579,6 +581,64 @@ function biggest_product_of_adjacent(n){
 
 
 addSolution(8, biggest_product_of_adjacent, 13, 'Função para encontrar o maior produto formado por '+GREEN_BOLD+'n'+WHITE+' dígitos adjacentes na string fornecida.');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+[PROBLEM 9]
+
+
+
+
+SOLUÇÃO
+
+
+
+*/
+
+function product_of_triplets_with_sum(n){
+
+return n;
+
+}
+
+addSolution(9, product_of_triplets_with_sum, 1000, 'Função para obter o produto das triplas pitagóricas cuja soma é '+GREEN_BOLD+'n'+RESET+'.'); 
+
+
+
+
+
+
+
+/*
+var res = diff_between_sum_of_squares_and_square_of_sum_of_1_to(1000);
+console.log(res);
+process.exit();
+*/
+
+
+
+
+
+
+
 
 
 
