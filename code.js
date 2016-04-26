@@ -420,6 +420,12 @@ addSolution(8, biggest_product_of_adjacent, 13, 'Função para encontrar o maior
 
 [PROBLEM 9]
 
+A Pythagorean triplet is a set of three natural numbers, a < b < c, for which, a*a + b*b = c*c
+For example, 32 + 42 = 9 + 16 = 25 = 52.
+
+There exists exactly one Pythagorean triplet for which a + b + c = 1000.
+Find the product abc.
+
 
 SOLUÇÃO
 
